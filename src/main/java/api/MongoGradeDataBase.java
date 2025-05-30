@@ -245,17 +245,22 @@ public class MongoGradeDataBase implements GradeDataBase {
     public Team getMyTeam() {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
+        /*
+        final MediaType mediaType = MediaType.parse(APPLICATION_JSON);
+        final JSONObject requestBody = new JSONObject();
+        requestBody.put(NAME, name);
+        final RequestBody body = RequestBody.create(mediaType, requestBody.toString());
+        */
+
         final Request request = new Request.Builder()
                 .url(String.format("%s/team", API_URL))
                 .method("GET", null)
                 .addHeader(TOKEN, getAPIToken())
                 .addHeader(CONTENT_TYPE, APPLICATION_JSON)
                 .build();
-
         try {
             final Response response = client.newCall(request).execute();
             final JSONObject responseBody = new JSONObject(response.body().string());
-
             if (responseBody.getInt(STATUS_CODE) == SUCCESS_CODE) {
                 final JSONObject team = responseBody.getJSONObject("team");
                 final JSONArray membersArray = team.getJSONArray("members");
@@ -263,7 +268,6 @@ public class MongoGradeDataBase implements GradeDataBase {
                 for (int i = 0; i < membersArray.length(); i++) {
                     members[i] = membersArray.getString(i);
                 }
-
                 return Team.builder()
                         .name(team.getString(NAME))
                         .members(members)
@@ -276,7 +280,6 @@ public class MongoGradeDataBase implements GradeDataBase {
         catch (IOException | JSONException event) {
             throw new RuntimeException(event);
         }
-
     }
 }
 

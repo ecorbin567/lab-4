@@ -233,7 +233,6 @@ public class Application {
         return theCard;
     }
 
-
     private static JPanel createManageTeamCard(JFrame jFrame, LeaveTeamUseCase leaveTeamUseCase,
                                                GetAverageGradeUseCase getAverageGradeUseCase, GetTopGradeUseCase getTopGradeUseCase) {
         final JPanel theCard = new JPanel();
@@ -258,7 +257,6 @@ public class Application {
                 JOptionPane.showMessageDialog(jFrame, ex.getMessage());
             }
         });
-
         getTopButton.addActionListener(event -> {
             final String course = courseField.getText();
 
