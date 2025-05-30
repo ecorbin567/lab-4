@@ -32,13 +32,15 @@ public final class GetAverageGradeUseCase {
         // Call the API to get all the grades for the course for all your team members
         final String[] members = team.getMembers();
         for (final String member : members) {
-            sum += mongoGradeDataBase.getGrade(member, course).getGrade();
+            Grade grade = gradeDataBase.getGrade(member, course);
+            sum += grade.getGrade();
             count++;
         }
 
         if (count == 0) {
             return 0;
         }
+
         return sum / count;
     }
 }

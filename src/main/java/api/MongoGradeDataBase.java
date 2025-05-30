@@ -246,6 +246,13 @@ public class MongoGradeDataBase implements GradeDataBase {
     public Team getMyTeam() {
         final OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
+        /*
+        final MediaType mediaType = MediaType.parse(APPLICATION_JSON);
+        final JSONObject requestBody = new JSONObject();
+        requestBody.put(NAME, name);
+        final RequestBody body = RequestBody.create(mediaType, requestBody.toString());
+        */
+
         final Request request = new Request.Builder()
                 .url(String.format("%s/team", API_URL))
                 .method("GET", null)
@@ -263,7 +270,6 @@ public class MongoGradeDataBase implements GradeDataBase {
                 for (int i = 0; i < membersArray.length(); i++) {
                     members[i] = membersArray.getString(i);
                 }
-
                 return Team.builder()
                         .name(team.getString(NAME))
                         .members(members)
