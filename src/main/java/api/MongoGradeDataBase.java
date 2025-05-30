@@ -261,7 +261,6 @@ public class MongoGradeDataBase implements GradeDataBase {
         try {
             final Response response = client.newCall(request).execute();
             final JSONObject responseBody = new JSONObject(response.body().string());
-
             if (responseBody.getInt(STATUS_CODE) == SUCCESS_CODE) {
                 final JSONObject team = responseBody.getJSONObject("team");
                 final JSONArray membersArray = team.getJSONArray("members");
@@ -283,3 +282,4 @@ public class MongoGradeDataBase implements GradeDataBase {
         }
     }
 }
+
